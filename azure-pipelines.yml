@@ -24,7 +24,7 @@ stages:
   - job: Build
     displayName: Build
     pool:
-      name: Deafult
+      name: Default
     steps:
      - task: DockerInstaller@0
        inputs:
