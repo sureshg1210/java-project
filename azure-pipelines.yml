@@ -33,12 +33,24 @@ stages:
         command: 'login'
         
         
+    # - task: Docker@2
+    #   displayName: Build and push an image to container registry
+    #   inputs:
+    #     command: buildAndPush
+    #     repository: $(imageRepository)
+    #     dockerfile: $(dockerfilePath)
+    #     containerRegistry: $(dockerRegistryServiceConnection)
+    #     tags: |
+    #       $(tag)
+           
     - task: Docker@2
-      displayName: Build and push an image to container registry
       inputs:
-        command: buildAndPush
-        repository: $(imageRepository)
-        dockerfile: $(dockerfilePath)
-        containerRegistry: $(dockerRegistryServiceConnection)
-        tags: |
-          $(tag)
+       containerRegistry: 'container-acr'
+       repository: 'sureshgjavaproject'
+       command: 'build'
+       Dockerfile: '**/Dockerfile'
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'container-acr'
+        repository: 'sureshgjavaproject'
+        command: 'push'
