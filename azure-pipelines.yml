@@ -10,7 +10,7 @@ resources:
 
 variables:
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: 'dea10be3-60fe-4eb6-bf5b-ce81602c0f79'
+  dockerRegistryServiceConnection: 'container-acr'
   imageRepository: 'sureshgjavaproject'
   containerRegistry: 'mycontainerregistry1210.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/app/Dockerfile'
