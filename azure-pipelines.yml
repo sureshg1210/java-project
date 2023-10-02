@@ -67,8 +67,8 @@ stages:
 
     - task: CopyFiles@2
       inputs:
-        SourceFolder: '$(System.DefaultWorkingDirectory)/app'
-        Contents: '**/*.yaml'
+        SourceFolder: '$(System.DefaultWorkingDirectory)'
+        Contents: '**/*.yml'
         TargetFolder: '$(Build.ArtifactStagingDirectory)'
         OverWrite: true
     # List files from Build Artifact Staging Directory - After Copy
