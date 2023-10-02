@@ -67,8 +67,8 @@ stages:
 
     - task: CopyFiles@2
       inputs:
-        SourceFolder: '$(System.DefaultWorkingDirectory)/kube-manifests'
-        Contents: '**'
+        SourceFolder: '$(System.DefaultWorkingDirectory)/'
+        Contents: '**/*.yaml'
         TargetFolder: '$(Build.ArtifactStagingDirectory)'
         OverWrite: true
     # List files from Build Artifact Staging Directory - After Copy
