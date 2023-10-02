@@ -1,4 +1,4 @@
-# Docker
+ # Docker
 
 # Build and push an image to Azure Container Registry
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
@@ -97,20 +97,23 @@ stages:
             inputs:
               artifactName: 'kube-manifests'
               downloadPath: '$(System.ArtifactsDirectory)'
-
-          - task: KubernetesManifest@0
-            displayName: Create imagePullSecret
+          - task: KubernetesManifest@1
             inputs:
-              action: createSecret
-              secretName: foobar
-              namespace: default
-              dockerRegistryEndpoint: $(dockerRegistryServiceConnection)
+              action: 'createSecret'
+              connectionType: 'kubernetesServiceConnection'
+              kubernetesServiceConnection: 'Practice-AKS-default'
+              namespace: 'default'
+              secretType: 'dockerRegistry'
+              secretName: 'footbar'
+              dockerRegistryEndpoint: 'container-acr'
 
           - task: KubernetesManifest@0
             displayName: Deploy to Kubernetes cluster
             inputs:
               action: deploy
               namespace: default
-              manifests: $(System.ArtifactsDirectory)/deployment  and service.yml
+              kubernetesServiceConnection: 'Practice-AKS-default'
+              manifests: $(System.ArtifactsDirectory)/manifests/app/deployment  and service.yml
               imagePullSecrets: foobar
-              containers: $(containerRegistry)/$(imageRepository):$(tag)
+              containers: $(imageRepository):$(tag)
+              
