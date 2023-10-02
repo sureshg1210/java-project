@@ -113,7 +113,7 @@ stages:
               action: deploy
               namespace: default
               kubernetesServiceConnection: 'Practice-AKS-default'
-              manifests: $(System.ArtifactsDirectory)/manifests/app/deployment  and service.yml
+              manifests: $(System.ArtifactsDirectory)/app/deployment  and service.yml
               imagePullSecrets: foobar
               containers: $(imageRepository):$(tag)
               
