@@ -19,7 +19,7 @@ variables:
   imagePullSecret: 'mycontainerregistry1210136379f2-auth'
 
   # Agent VM image name
-  vmImageName: 'ubuntu-latest'
+
 
 
 stages:
@@ -29,7 +29,7 @@ stages:
   - job: Build
     displayName: Build
     pool:
-      vmImage: $(vmImageName)
+      name: default
     steps:
     - task: Docker@2
       displayName: Build and push an image to container registry
@@ -52,7 +52,7 @@ stages:
   - deployment: Deploy
     displayName: Deploy
     pool:
-      vmImage: $(vmImageName)
+      name: default
     environment: 'sureshg1210javaproject-1394.default'
     strategy:
       runOnce:
