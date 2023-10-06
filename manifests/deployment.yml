@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: sureshgjavaproject 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sureshgjavaproject
+  template:
+    metadata:
+      labels:
+        app: sureshgjavaproject 
+    spec:
+      containers:
+        - name: sureshgjavaproject 
+          image: mycontainerregistry1210.azurecr.io/sureshgjavaproject
+          ports:
+          - containerPort: 8080
