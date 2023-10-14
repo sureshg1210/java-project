@@ -1,0 +1,53 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- none
+resources:
+  pipelines:
+  - pipeline: CIPIPELINE
+    source: "CI PIPELINE"
+
+pool:
+  name: default
+
+stages:
+- stage: Deploy
+  displayName: Deploy stage
+  dependsOn: Build
+  jobs:
+  - deployment: Deploy
+    displayName: Deploy job
+    pool:
+      name: Default
+    environment: sureshg1210javaproject #customize with your environment
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              artifactName: 'kube-manifests'
+              downloadPath: '$(System.ArtifactsDirectory)'
+          - task: KubernetesManifest@1
+            inputs:
+              action: 'createSecret'
+              connectionType: 'kubernetesServiceConnection'
+              kubernetesServiceConnection: 'Practice-AKS-default'
+              namespace: 'default'
+              secretType: 'dockerRegistry'
+              secretName: 'footbar'
+              dockerRegistryEndpoint: 'container-acr'
+
+          - task: KubernetesManifest@0
+            displayName: Deploy to Kubernetes cluster
+            inputs:
+              action: deploy
+              namespace: default
+              kubernetesServiceConnection: 'Practice-AKS-default'
+              manifests: $(System.ArtifactsDirectory)/app/deployment  and service.yml
+              imagePullSecrets: foobar
+              containers: $(imageRepository):$(tag)
+              
