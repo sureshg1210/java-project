@@ -7,7 +7,7 @@ trigger:
 - none
 resources:
   pipelines:
-  - pipeline: CIPIPELINE
+  - pipeline: "tag"
     source: "CI PIPELINE"
 
 pool:
